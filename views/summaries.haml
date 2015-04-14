@@ -1,0 +1,19 @@
+- unless pages.empty?
+  - pages.each do |page|
+    - article_class = 'list-view'
+    - if page.flagged_as?('tutorial')
+      - article_class += ' tutorial'
+
+    %article{ :class => article_class }
+      - if page.date
+        .date
+          %a{ :href => page.abspath }= format_date(page.date)
+
+      - if !page.flagged_as?('no_title')
+        %h1
+          %a{ :href => page.abspath }= page.heading
+
+      - if page.flagged_as?('tutorial')
+        %a{ :href => page.abspath } go to tutorial
+      - else
+        ~ page.body

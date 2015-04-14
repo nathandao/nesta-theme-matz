@@ -1,7 +1,29 @@
-<!DOCTYPE html>
-%html(lang="en")
+!!!
+%html{ :lang => "en", "xml:lang" => "en", :xmlns => 'http://www.w3.org/1999/xhtml' }
   %head
-    %meta(charset="utf-8")
-    %title
-  %body
-    = yield
+    %meta{ "http-equiv" => "content-type", "content" => "text/html; charset=utf-8" }
+    - if @description
+      %meta{ "name" => "description", "content" => @description }
+    - if @keywords
+      %meta{ "name" => "keywords", "content" => @keywords }
+    %title= @title
+    %link{ :href => "/css/master.css", :media => "screen", :rel => "stylesheet", :type => "text/css" }
+    - local_stylesheet_link_tag('local')
+    %link{ :href => "/articles.xml", :rel => "alternate", :type => "application/atom+xml" }
+    = haml :analytics, :layout => false
+  %body{ :class => @body_class }
+    #container
+      #header
+        - if @heading
+          %p.title= @heading
+        - if @subtitle
+          %p.subtitle= @subtitle
+      = yield
+      #footer
+        %p
+          Powered by Nesta, a
+          = succeed "." do
+            %a{ :href => "http://nestacms.com" } Ruby CMS
+          Designed by
+          = succeed "." do
+            %a{ :href => "http://effectif.com" } Guy Nathan

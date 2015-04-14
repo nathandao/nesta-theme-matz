@@ -1,1 +1,17 @@
-~ @page.to_html(self)
+#content
+  - if @page.date
+    .date= format_date(@page.date)
+
+  ~ @page.to_html(self)
+
+  = haml :summaries, :layout => false, :locals => { :pages => @page.pages }
+
+  - unless @page.categories.empty?
+    .categories
+      %strong Categories:
+      - @page.categories.each do |category|
+        %a{ :href => category.abspath }= category.heading
+
+  = haml :comments, :layout => false
+
+= haml :sidebar, :layout => false
