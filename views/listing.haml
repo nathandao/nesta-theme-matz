@@ -16,4 +16,5 @@
       - if page.flagged_as?('tutorial')
         %a{ :href => page.abspath } go to tutorial
       - else
-        ~ page.body
+        .article-content
+          ~ page.body

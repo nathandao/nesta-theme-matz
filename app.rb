@@ -2,13 +2,14 @@
 # do whatever else you fancy when the theme is loaded.
 
 module Nesta
+
   class App
     # Uncomment the Rack::Static line below if your theme has assets
     # (i.e images or JavaScript).
     #
     # Put your assets in themes/matz/public/matz.
     #
-    # use Rack::Static, urls: ["/matz"], root: "themes/matz/public"
+    use Rack::Static, urls: ["/matz"], root: "themes/matz/public"
 
     helpers do
       def matz_all_articles
