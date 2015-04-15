@@ -4,7 +4,7 @@
 
   ~ @page.to_html(self)
 
-  = haml :summaries, :layout => false, :locals => { :pages => @page.pages }
+  = haml :listing, :layout => false, :locals => { :pages => @page.pages }
 
   - unless @page.categories.empty?
     .categories

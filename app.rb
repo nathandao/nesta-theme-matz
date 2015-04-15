@@ -11,7 +11,13 @@ module Nesta
     # use Rack::Static, urls: ["/matz"], root: "themes/matz/public"
 
     helpers do
-      # Add new helpers here.
+      def matz_all_articles
+        Nesta::Page.find_articles
+      end
+
+      def matz_article_listing(articles)
+        haml(:listing, layout: false, locals: { pages: articles })
+      end
     end
 
     # Add new routes here.
