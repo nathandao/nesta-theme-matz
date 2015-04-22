@@ -19,8 +19,20 @@ module Nesta
       def matz_article_listing(articles)
         haml(:listing, layout: false, locals: { pages: articles })
       end
+
+      def matz_page_classes(page, default_class)
+        default_class ||= ''
+        page_class = page.date ? default_class + ' page-single' : default_class
+        flags = ['tutorial', 'no-title', 'col-2', 'col-3', 'col-4']
+        flags.each do |flag|
+          if page.flagged_as?(flag)
+            page_class += /(col)/.match(flag) ? ' col ' + flag : ' ' + flag
+          end
+        end
+        page_class
+      end
     end
+  end
 
     # Add new routes here.
-  end
 end
