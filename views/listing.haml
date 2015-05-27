@@ -15,7 +15,7 @@
     %article{ :class => article_class }
       - if page.date
         .date
-          %a{ :href => page.abspath }= format_date(page.date)
+          %a{ :href => page.abspath }= matz_format_date(page.date)
 
       - if !page.flagged_as?('no-title')
         %h1

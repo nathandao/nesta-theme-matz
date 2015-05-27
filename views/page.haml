@@ -1,8 +1,10 @@
+- post_class = 'content-wrapper'
 #content
-  - if @page.date
-    .date= format_date(@page.date)
+  %div{ :class => matz_page_classes(@page, post_class) }
+    - if @page.date
+      .date= matz_format_date(@page.date)
 
-  ~ @page.to_html(self)
+    ~ @page.to_html(self)
 
   = haml :listing, :layout => false, :locals => { :pages => @page.pages }
 
@@ -12,4 +14,9 @@
       - @page.categories.each do |category|
         %a{ :href => category.abspath }= category.heading
 
-= haml :sidebar, :layout => false
+  - if @page.date
+    - comment_class = 'comments'
+    - if @page.flagged_as?('col-2') || @page.flagged_as?('col-3') || @page.flagged_as?('col-4') || @page.flagged_as?('tutorial')
+      - comment_class += ' full-width'
+    %div{ :class => comment_class }
+      = haml :comments, :layout => false

@@ -1,3 +1,8 @@
+// Break points
+$mobile: "only screen and (max-width : 767px)";
+$tablet: "only screen and (max-width : 1300px)";
+$desktop: "only screen and (max-width : 1301px)";
+
 // Imports
 
 @import
@@ -21,11 +26,12 @@ $button_highlight: #F8EED3;
 
 // Colors
 
-$bg_main: #caccc9;
+$bg_main: #e1e1e1;
 $no_title_bg: #fff;
 $tutorial_bg: $bg_main;
-$text_color: #222;
-$heading_color: #fff;
+$code_bg: #605e5f;
+$text_color: $code_bg;
+$heading_color: #222;
 
 
 // Mixins
@@ -58,6 +64,10 @@ body {
   line-height: 1.8;
 }
 
+img, iframe {
+  max-width: 100%;
+}
+
 h1 {
   font-size: 2.8em;
 }
@@ -78,7 +88,6 @@ h1, h2, h3, h4 {
   line-height: 1.3;
   font-family: $heading_font, "serif";
   color: $heading_color;
-  opacity: 0.8;
   a {
     color: $heading_color;
   }
@@ -86,15 +95,19 @@ h1, h2, h3, h4 {
 
 h1, h2 {
   max-width: 50%;
+
+  @media #{$tablet} {
+    max-width: 100%;
+  }
 }
 
 a {
   text-decoration: none;
   color: $text_color;
-  -webkit-transition: all 0.3s ease 0s;
-  -moz-transition: all 0.3s ease 0s;
-  -o-transition: all 0.3s ease 0s;
-  transition: all 0.3s ease 0s;
+  -webkit-transition: background-color 0.3s ease 0s;
+  -moz-transition: background-color 0.3s ease 0s;
+  -o-transition: background-color 0.3s ease 0s;
+  transition: background-color 0.3s ease 0s;
 }
 
 p {
@@ -121,8 +134,12 @@ blockquote {
 pre {
   white-space: pre-wrap;
   @include inner-padding();
-  padding: 0.5em;
-  border: 1px solid $text_color;
+  padding: 1em;
+  background: $code_bg;
+  color: $bg_main;
+  font-size: 0.9em;
+  font-family: $meta_font;
+  margin-bottom: 1em;
   code {
     overflow-wrap: break-word;
   }
@@ -133,12 +150,40 @@ pre {
   padding: 0.2em 1em;
   border: 1px solid $text_color;
   font-family: $meta_font;
+  &:hover {
+    background: $button_highlight;
+  }
 }
 
 // Content elements
 
+#header{
+  padding: 5em 2em 8em 2em;
+  font-family: $meta_font;
+  color: #fff;
+  a {
+    color: #fff;
+  }
+  .logo {
+    font-size: 5em;
+    display: block;
+    line-height: 1.3;
+  }
+  .sub-logo {
+    display: block;
+    font-size: 1.2em;
+    line-height: 1.5;
+    padding-left: 4px;
+  }
+
+  @media #{$mobile} {
+    padding: 2em 1em;
+  }
+}
+
 #container {
   width: 100%;
+  padding-bottom: 61px;
   @include inner-padding();
 }
 
@@ -153,10 +198,23 @@ article {
     padding: 8em 2em;
     @include inner-padding();
     width: 100%;
+
+    @media #{$mobile} {
+      padding: 4em 1em;
+    }
+
     .article-content {
       width: 50%;
       @include inner-padding();
       padding-right: 0.5em;
+
+      @media #{$desktop} {
+        width: 70%;
+      }
+
+      @media #{$tablet} {
+        width: 100%;
+      }
     }
 
     &.col {
@@ -182,15 +240,18 @@ article {
 
 .date {
   font-family: $meta_font;
-  a {
-    font-weight: bold;
-    display: inline-block;
-    height: 30px;
-    line-height: 30px;
-    border-top: 1px solid $text_color;
-    border-bottom: 1px solid $text_color;
-  }
 }
+
+.date a,
+.page-single .date {
+  font-weight: bold;
+  display: inline-block;
+  height: 30px;
+  line-height: 30px;
+  border-top: 1px solid $text_color;
+  border-bottom: 1px solid $text_color;
+}
+
 
 // Columns
 
@@ -204,4 +265,141 @@ article {
 
 .col-4 {
   @include cols(4, 1em);
+}
+
+.col-2,
+.col-3,
+.col-4 {
+  @media #{$desktop} {
+    @include cols(2, 2em);
+}
+
+  @media #{$tablet} {
+    @include cols(1);
+  }
+}
+
+// Single page
+.page-single {
+  padding: 0 2em 5em 2em;
+  width: 60%;
+  box-sizing: border-box;
+
+  @media #{$tablet} {
+    width: 100%;
+  }
+
+  @media #{$mobile} {
+    padding: 0 1em;
+  }
+
+  &.col {
+    width: 100%;
+  }
+
+  &.tutorial {
+    width: 100%;
+    p, h1, h2, h3, h4, h5, .date {
+      margin-left: 100px;
+      margin-right: 100px;
+
+      @media #{$tablet} {
+        margin-left: 50px;
+        margin-right: 50px;
+      }
+
+      @media #{$mobile} {
+        margin-left: 0px;
+        margin-right: 0px;
+      }
+    }
+    pre {
+      margin: 1em -2em 2em -2em;
+      padding: 1em 9em;
+
+      @media #{$tablet} {
+        padding: 1em 5.5em;
+      }
+
+      @media #{$mobile} {
+        margin: 1em -1em 2em -1em;
+        padding: 1.3em;
+      }
+    }
+  }
+}
+
+.comments {
+  padding: 5em 2em;
+  background: $code_bg;
+  width: 40%;
+  box-sizing: border-box;
+  position: fixed;
+  bottom: 0px;
+  right: 0;
+
+  &.full-width {
+    position: relative;
+    width: 100%;
+    margin-top: 6em;
+
+    #disqus_thread {
+      width: 50%;
+
+      @media #{$tablet} {
+        width: 100%;
+      }
+    }
+  }
+
+  @media #{$tablet} {
+    position: relative;
+    width: 100%;
+    margin-top: 6em;
+  }
+
+  @media #{$mobile} {
+    margin-top: 4em;
+    padding: 3em 1em;
+  }
+}
+
+#footer {
+  padding: 2em 2em 1em 2em;
+  box-sizing: border-box;
+  width: 100%;
+  font-size: 0.7em;
+  background: $code_bg;
+  color: #fff;
+  text-align: right;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
+
+@media #{$mobile} {
+  h1 {
+    font-size: 2.3em;
+  }
+  blockquote {
+    font-size: 1.2em;
+  }
+}
+
+.video-container {
+  position: relative;
+  padding-bottom: 56.25%;
+  padding-top: 30px;
+  height: 0;
+  overflow: hidden;
+  border: 5px solid $code_bg;
+  iframe,
+  object,
+  embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
 }

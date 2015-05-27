@@ -31,6 +31,10 @@ module Nesta
         end
         page_class
       end
+
+      def matz_format_date(date)
+        date.strftime("%A")
+      end
     end
   end
 
